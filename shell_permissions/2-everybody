@@ -1,2 +1,8 @@
 #!/bin/bash
-chmod 777 hello
+perm=$(stat -c "%a" hello)
+
+if [ "$perm" -eq 640 ]; then
+    chmod 751 hello   # -rwxr-x--x
+elif [ "$perm" -eq 444 ]; then
+    chmod 555 hello   # -r-xr-xr-x
+fi
